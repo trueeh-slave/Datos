@@ -2,12 +2,7 @@
 global $conexion;
 require_once("../util/usage.php");
 
-$query = "SELECT p.NOMBRE_PROYECTO, SUM(i.SALDO_INMUEBLE) AS DEUDA_TOTAL
-FROM PROYECTO p
-INNER JOIN INMUEBLE i ON p.ID_PROYECTO = i.ID_PROYECTO
-GROUP BY p.ID_PROYECTO, p.NOMBRE_PROYECTO
-ORDER BY DEUDA_TOTAL DESC;
-;";
+$query = "SELECT * FROM reporte_deuda_repartida;";
 $result = mysqli_query($conexion, $query);
 
 ?>

@@ -2,8 +2,7 @@
 global $conexion;
 require_once("../util/usage.php");
 
-$query = "SELECT C.ID_CLIENTE, C.NUM_IDENTIFICACION, PAPELLIDO_CLIENTE, SAPELLIDO_CLIENTE, PNOMBRE_CLIENTE, SNOMBRE_CLIENTE, SALDO FROM CLIENTE C
-WHERE SALDO>0;";
+$query = "SELECT * FROM reporte_clientes_deuda";
 $result = mysqli_query($conexion, $query);
 
 ?>
