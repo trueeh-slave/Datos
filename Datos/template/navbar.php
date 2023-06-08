@@ -29,6 +29,10 @@
                     <a class="nav-link active" aria-current="page" href="inmuebles.php">Inmuebles</a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="proyectos.php">Proyectos</a>
+                </li>
+
                 <!--Menú desplegable-->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,6 +44,7 @@
                         <li><a class="dropdown-item" href="reporteDeuda.php">Reporte clientes (Deuda)</a></li>
                         <li><a class="dropdown-item" href="reporteProyectoMasDeuda.php">Reporte de proyecto que más deben</a></li>
                         <li><a class="dropdown-item" href="reporteProyectoCliente.php">Reporte proyecto que más deben por cliente</a></li>
+                        <li><a class="dropdown-item" href="reporteClienteInmueble.php">Reporte Deuda de cliente por inmueble</a></li>
                     </ul>
                 </li>
             </ul>
