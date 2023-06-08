@@ -130,12 +130,12 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
                     <input type="hidden" name="id" id="id">
                     <div class="row mb-3 gx-3">
                         <div class="col">
-                            <input type="text" name="nident" class="form-control form-control-lg" placeholder="Identificación" required>
+                            <input type="text" name="nident" id="nident" class="form-control form-control-lg" placeholder="Identificación" required>
                             <div class="invalid-feedback">Identificación Obligatoria</div>
                         </div>
 
                         <div class="col">
-                            <select name="tipoDoc" id="" class="form-select form-control-lg" aria-label="Default select example" required>
+                            <select name="tipoDoc" id="tipoDoc" class="form-select form-control-lg" aria-label="Default select example" required>
                                 <?php while ($row = mysqli_fetch_assoc($resultDocEdit)) { ?>
                                     <option value="<?php echo $row['ID_DOCUMENTO']; ?>"><?php echo $row['NOMBRE_DOCUMENTO']; ?></option>
                                 <?php } ?>
@@ -145,26 +145,26 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
                     </div>
 
                     <div class="mb-3">
-                        <input type="text" name="papellido" class="form-control form-control-lg" placeholder="Primer Apellido" required>
+                        <input type="text" name="papellido" id="papellido" class="form-control form-control-lg" placeholder="Primer Apellido" required>
                         <div class="invalid-feedback">Apellido obligatorio.</div>
                     </div>
 
                     <div class="mb-3">
-                        <input type="text" name="sapellido" class="form-control form-control-lg" placeholder="Segundo Apellido" required>
+                        <input type="text" name="sapellido" id="sapellido" class="form-control form-control-lg" placeholder="Segundo Apellido" required>
                         <div class="invalid-feedback">Apellido obligatorio.</div>
                     </div>
 
                     <div class="mb-3">
-                        <input type="text" name="pnombre" class="form-control form-control-lg" placeholder="Primer Nombre" required>
+                        <input type="text" name="pnombre" id="pnombre" class="form-control form-control-lg" placeholder="Primer Nombre" required>
                         <div class="invalid-feedback">Nombre obligatorio.</div>
                     </div>
 
                     <div class="mb-3">
-                        <input type="text" name="snombre" class="form-control form-control-lg" placeholder="Segundo Nombre">
+                        <input type="text" name="snombre" id="snombre" class="form-control form-control-lg" placeholder="Segundo Nombre">
                     </div>
 
                     <div class="mb-3">
-                        <select name="ciudad" id="" class="form-select form-control-lg" aria-label="Default select example" required>
+                        <select name="ciudad" id="ciudad" class="form-select form-control-lg" aria-label="Default select example" required>
                             <?php while ($row = mysqli_fetch_assoc($resultCiudadEdit)) { ?>
                                 <option value="<?php echo $row['ID_CIUDAD']; ?>"><?php echo $row['NOMBRE_CIUDAD']; ?></option>
                             <?php } ?>
@@ -173,22 +173,22 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
                     </div>
 
                     <div class="mb-3">
-                        <input type="date" name="fechaNacimiento" class="form-control form-control-lg" required>
+                        <input type="date" name="fechaNacimiento" id="fechaNacimiento" class="form-control form-control-lg" required>
                         <div class="invalid-feedback">La fecha es requerida!</div>
                     </div>
 
                     <div class="mb-3">
-                        <input type="email" name="email" class="form-control form-control-lg" placeholder="Email" required>
+                        <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Email" required>
                         <div class="invalid-feedback">Email obligatorio.</div>
                     </div>
 
                     <div class="mb-3">
-                        <input type="number" name="ingreso" class="form-control form-control-lg" placeholder="Ingreso Mensual" required>
+                        <input type="number" name="ingreso" id="ingreso" class="form-control form-control-lg" placeholder="Ingreso Mensual" required>
                         <div class="invalid-feedback">Ingreso Mensual obligatorio.</div>
                     </div>
 
                     <div class="mb-3">
-                        <input type="number" name="telefono" class="form-control form-control-lg" placeholder="Teléfono" required>
+                        <input type="number" name="telefono" id="telefono" class="form-control form-control-lg" placeholder="Teléfono" required>
                         <div class="invalid-feedback">Teléfono obligatorio.</div>
                     </div>
                     <div class="mb-3">
@@ -200,7 +200,7 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
     </div>
 </div>
 <!-- Edit User Modal End -->
-<div class="container">
+<div class="container w-100">
     <div class="row mt-4">
         <div class="col-lg-12 d-flex justify-content-between align-items-center">
             <div>
@@ -219,7 +219,7 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <div class="table-responsive">
+            <div class="table-responsive" style="max-width: 100% !important;">
                 <table class="table table-striped table-bordered text-center">
                     <thead>
                     <tr>
@@ -228,12 +228,14 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
                         <th>Tipo Documento</th>
                         <th>Primer Apellido</th>
                         <th>Segundo Apellido</th>
+                        <th>Primer nombre</th>
+                        <th>Segundo nombre </th>
                         <th>Ciudad</th>
-                        <th>Fecha Nacimiento </th>
+                        <th>Fecha nacimiento</th>
                         <th>Correo</th>
-                        <th>Ingreso Mensual</th>
+                        <th>Ingreso</th>
                         <th>Teléfono</th>
-                        <th>Saldo Pendiente</th>
+                        <th>Saldo</th>
                         <th>Acción</th>
                     </tr>
                     </thead>
@@ -321,18 +323,18 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
             method: "GET",
         });
         const response = await data.json();
-        document.getElementById("id").value = response.id;
-        document.getElementById("nident").value = response.nident;
-        document.getElementById("tipoDoc").value = response.tipoDoc;
-        document.getElementById("papellido").value = response.papellido;
-        document.getElementById("sapellido").value = response.sapellido;
-        document.getElementById("pnombre").value = response.pnombre;
-        document.getElementById("snombre").value = response.snombre;
-        document.getElementById("ciudad").value = response.ciudad;
-        document.getElementById("fechaNacimiento").value = response.fechaNacimiento;
-        document.getElementById("email").value = response.email;
-        document.getElementById("ingreso").value = response.ingreso;
-        document.getElementById("telefono").value = response.telefono;
+        document.getElementById("id").value = response.ID_CLIENTE;
+        document.getElementById("nident").value = response.NUM_IDENTIFICACION;
+        document.getElementById("tipoDoc").value = response.NOMBRE_DOCUMENTO;
+        document.getElementById("papellido").value = response.PAPELLIDO_CLIENTE;
+        document.getElementById("sapellido").value = response.SAPELLIDO_CLIENTE;
+        document.getElementById("pnombre").value = response.PNOMBRE_CLIENTE;
+        document.getElementById("snombre").value = response.SNOMBRE_CLIENTE;
+        document.getElementById("ciudad").value = response.NOMBRE_CIUDAD;
+        document.getElementById("fechaNacimiento").value = response.FECHA_NACIMIENTO;
+        document.getElementById("email").value = response.CORREO_ELECTRONICO;
+        document.getElementById("ingreso").value = response.INGRESO_MENSUAL;
+        document.getElementById("telefono").value = response.TELEFONO_CLIENTE;
     };
 
     // Update User Ajax Request
@@ -350,12 +352,11 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
         } else {
             document.getElementById("edit-user-btn").value = "Please Wait...";
 
-            const data = await fetch("../utils/action.php", {
+            const data = await fetch("../util/action.php", {
                 method: "POST",
                 body: formData,
             });
             const response = await data.text();
-
             showAlert.innerHTML = response;
             document.getElementById("edit-user-btn").value = "Add User";
             updateForm.reset();

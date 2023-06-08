@@ -60,6 +60,7 @@ if (isset($_GET['read'])) {
     }
 }
 
+
 // Handle Edit User Ajax Request
 if (isset($_GET['edit'])) {
     $id = $_GET['id'];
@@ -70,16 +71,23 @@ if (isset($_GET['edit'])) {
 
 // Handle Update User Ajax Request
 if (isset($_POST['update'])) {
-    $id = $inserts->testInput($_POST['id']);
-    $fname = $inserts->testInput($_POST['fname']);
-    $lname = $inserts->testInput($_POST['lname']);
-    $email = $inserts->testInput($_POST['email']);
-    $phone = $inserts->testInput($_POST['phone']);
+    $id = $funciones->testInput($_POST['id']);
+    $identificacion = $funciones->testInput($_POST['nident']);
+    $tipoDoc = $funciones->testInput($_POST['tipoDoc']);
+    $papellido = $funciones->testInput($_POST['papellido']);
+    $sapellido = $funciones->testInput($_POST['sapellido']);
+    $pnombre = $funciones->testInput($_POST['pnombre']);
+    $snombre = $funciones->testInput($_POST['snombre']);
+    $ciudad = $funciones->testInput($_POST['ciudad']);
+    $fechaCum = $funciones->testInput($_POST['fechaNacimiento']);
+    $email = $funciones->testInput($_POST['email']);
+    $ingreso = $funciones->testInput($_POST['ingreso']);
+    $telefono = $funciones->testInput($_POST['telefono']);
 
-    if ($inserts->update($id, $fname, $lname, $email, $phone)) {
-        echo $inserts->showMessage('success', 'User updated successfully!');
+    if ($inserts->update($id,$identificacion,$tipoDoc,$papellido,$sapellido,$pnombre,$snombre,$ciudad,$fechaCum,$email,$ingreso,$telefono)) {
+        echo $funciones->showMessage('success', 'User updated successfully!');
     } else {
-        echo $inserts->showMessage('danger', 'Something went wrong!');
+        echo $funciones->showMessage('danger', 'Something went wrong!');
     }
 }
 

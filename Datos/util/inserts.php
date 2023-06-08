@@ -34,7 +34,7 @@ class Inserts extends Config
     // Fetch Single User From Database
     public function readOne($id)
     {
-        $sql = 'SELECT * FROM TABLA_CLIENTE WHERE id = :id';
+        $sql = 'SELECT * FROM TABLA_CLIENTE WHERE id_cliente = :id';
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(['id' => $id]);
         $result = $stmt->fetch();
@@ -42,9 +42,22 @@ class Inserts extends Config
     }
 
     // Update Single User
-    public function update($cedula, $tipo_cedula, $papellido, $sapellido, $pnombre, $snombre, $ciudad, $fecha, $email, $ingreso, $telefono)
+    public function update($id, $cedula, $tipo_cedula, $papellido, $sapellido, $pnombre, $snombre, $ciudad, $fecha, $email, $ingreso, $telefono)
     {
-        $sql = 'UPDATE CLIENTE SET  = :fname, last_name = :lname, email = :email, phone = :phone WHERE id = :id';
+        $sql = 'UPDATE cliente
+                SET NUM_IDENTIFICACION = :cedula,
+                    TIPO_DOCUMENTO = :tcedula,
+                    PAPELLIDO_CLIENTE = :papellido,
+                    SAPELLIDO_CLIENTE = :sapellido,
+                    PNOMBRE_CLIENTE = :pnombre,
+                    SNOMBRE_CLIENTE = :snombre,
+                    ID_CIUDAD = :ciudad,
+                    FECHA_NACIMIENTO = :fecha,
+                    CORREO_ELECTRONICO = :email,
+                    INGRESO_MENSUAL = :ingreso,
+                    TELEFONO_CLIENTE = :telefono
+                    WHERE ID_CLIENTE = :id;
+';
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
             'cedula' => $cedula,
@@ -57,7 +70,8 @@ class Inserts extends Config
             'fecha' => $fecha,
             'email' => $email,
             'ingreso' => $ingreso,
-            'telefono' => $telefono
+            'telefono' => $telefono,
+            'id' => $id
         ]);
 
         return true;
