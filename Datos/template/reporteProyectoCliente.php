@@ -2,10 +2,17 @@
 global $conexion;
 require_once("../util/usage.php");
 
-$query = "SELECT * FROM tabla_inmuebles;";
+$query = "SELECT p.NOMBRE_PROYECTO, c.NUM_IDENTIFICACION, c.PNOMBRE_CLIENTE, c.PAPELLIDO_CLIENTE, SUM(i.SALDO_INMUEBLE) AS DEUDA_TOTAL
+FROM PROYECTO p
+INNER JOIN INMUEBLE i ON p.ID_PROYECTO = i.ID_PROYECTO
+INNER JOIN CLIENTE c ON i.ID_CLIENTE = c.ID_CLIENTE
+GROUP BY p.ID_PROYECTO, p.NOMBRE_PROYECTO, c.ID_CLIENTE, c.PNOMBRE_CLIENTE, c.PAPELLIDO_CLIENTE
+ORDER BY DEUDA_TOTAL DESC;
+;";
 $result = mysqli_query($conexion, $query);
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,42 +32,26 @@ $result = mysqli_query($conexion, $query);
 <center>
     <div class="contenedor">
         <div id="bd">
-            <input type="button" onclick="exportTableToExcel('reporte','ReporteInmueble')" value="Generar Excel" class="btn btn-success mt-3" > <br>
+            <input type="button" onclick="exportTableToExcel('reporte','reporteDeudaProyectoCliente')" value="Generar Excel" class="btn btn-success mt-3" > <br>
             <table class="table table-striped table-bordered text-center  w-75 mt-3" id="reporte">
                 <thead>
-                <th scope="col">id</th>
-                <th scope="col">Nombre_proyecto</th>
-                <th scope="col">Número torre</th>
-                <th scope="col">Número inmueble</th>
-                <th scope="col">Id_cliente</th>
-                <th scope="col">Precio Venta</th>
-                <th scope="col">Costo adicional</th>
-                <th scope="col">Fecha negociación</th>
-                <th scope="col">Valor Separación</th>
-                <th scope="col">Número cuotas</th>
-                <th scope="col">Saldo inmueble</th>
-                <th scope="col">Valor cuota</th>
-                <th scope="col">Estado</th>
+                <th scope="col">Nombre proyecto</th>
+                <th scope="col">Número identificación</th>
+                <th scope="col">Primer nombre cliente</th>
+                <th scope="col">Primer apellido cliente</th>
+                <th scope="col">Deuda total</th>
                 </thead>
                 <tbody>
                 <?php
                 $contador = 0;
-                while ($inmueble = mysqli_fetch_array($result)) {
+                while ($proyecto = mysqli_fetch_array($result)) {
                     $contador++ ?>
                     <tr>
-                        <td scope="row"><?php echo $inmueble['ID_INMUEBLE']; ?></td>
-                        <td scope="row"><?php echo $inmueble['NOMBRE_PROYECTO']; ?></td>
-                        <td scope="row"><?php echo $inmueble['NUM_TORRE']; ?></td>
-                        <td scope="row"><?php echo $inmueble['NUM_INMUEBLE']; ?></td>
-                        <td scope="row"><?php echo $inmueble['ID_CLIENTE']; ?></td>
-                        <td scope="row"><?php echo $inmueble['PRECIO_VENTA']; ?></td>
-                        <td scope="row"><?php echo $inmueble['COSTO_ADICIONAL']; ?></td>
-                        <td scope="row"><?php echo $inmueble['FECHA_NEGOCIACION']; ?></td>
-                        <td scope="row"><?php echo $inmueble['VALOR_SEPARACION']; ?></td>
-                        <td scope="row"><?php echo $inmueble['NUM_CUOTAS']; ?></td>
-                        <td scope="row"><?php echo $inmueble['SALDO_INMUEBLE']; ?></td>
-                        <td scope="row"><?php echo $inmueble['VALOR_CUOTA']; ?></td>
-                        <td scope="row"><?php echo $inmueble['ESTADO_INMUEBLE']; ?></td>
+                        <td scope="row"><?php echo $proyecto['NOMBRE_PROYECTO']; ?></td>
+                        <td scope="row"><?php echo $proyecto['NUM_IDENTIFICACION']; ?></td>
+                        <td scope="row"><?php echo $proyecto['PNOMBRE_CLIENTE']; ?></td>
+                        <td scope="row"><?php echo $proyecto['PAPELLIDO_CLIENTE']; ?></td>
+                        <td scope="row"><?php echo $proyecto['DEUDA_TOTAL']; ?></td>
                     </tr>
                 <?php }
                 echo "La cantidad de registros en la base de datos son: " . $contador; ?>
@@ -103,8 +94,5 @@ $result = mysqli_query($conexion, $query);
         }
     }
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
-
-</html>

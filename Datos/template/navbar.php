@@ -37,9 +37,9 @@
 
                     <!--item del menú desplegable-->
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Nombre Reporte 1</a></li>
-                        <li><a class="dropdown-item" href="#">Nombre Reporte 2</a></li>
-                        <li><a class="dropdown-item" href="#">Nombre Reporte 3</a></li>
+                        <li><a class="dropdown-item" href="reporteDeuda.php">Reporte clientes (Deuda)</a></li>
+                        <li><a class="dropdown-item" href="reporteProyectoMasDeuda.php">Reporte de proyecto que más deben</a></li>
+                        <li><a class="dropdown-item" href="reporteProyectoCliente.php">Reporte proyecto que más deben por cliente</a></li>
                     </ul>
                 </li>
             </ul>
