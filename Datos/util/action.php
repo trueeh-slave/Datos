@@ -22,7 +22,7 @@ if(isset($_POST['add'])) {
     if($inserts->insertCliente($identificacion, $tipoDoc, $papellido, $sapellido, $pnombre, $snombre, $ciudad, $fechaCum,$email,$ingreso,$telefono)){
         echo $funciones->showMessage('success', 'Se ha agregado al cliente correctamente');
     } else {
-        echo $funciones->showMessage('danger', 'Surgio un error, intentelo denuevo.');
+        echo $funciones->showMessage('danger', 'Surgió un error, intentelo denuevo.');
     }
 }
 
@@ -72,7 +72,6 @@ if (isset($_GET['edit'])) {
 // Handle Update User Ajax Request
 if (isset($_POST['update'])) {
     $id = $funciones->testInput($_POST['id']);
-    $identificacion = $funciones->testInput($_POST['nident']);
     $tipoDoc = $funciones->testInput($_POST['tipoDoc']);
     $papellido = $funciones->testInput($_POST['papellido']);
     $sapellido = $funciones->testInput($_POST['sapellido']);
@@ -84,17 +83,18 @@ if (isset($_POST['update'])) {
     $ingreso = $funciones->testInput($_POST['ingreso']);
     $telefono = $funciones->testInput($_POST['telefono']);
 
-    if ($inserts->update($id,$identificacion,$tipoDoc,$papellido,$sapellido,$pnombre,$snombre,$ciudad,$fechaCum,$email,$ingreso,$telefono)) {
-        echo $funciones->showMessage('success', 'User updated successfully!');
+    if ($inserts->update($id,$tipoDoc,$papellido,$sapellido,$pnombre,$snombre,$ciudad,$fechaCum,$email,$ingreso,$telefono)) {
+        echo $funciones->showMessage('success', 'Se actualizo el cliente correctamente.');
     } else {
         echo $funciones->showMessage('danger', 'Something went wrong!');
     }
 }
-
-if (isset($_GET['delete'])) {
+//Handle Delete User Ajax Request
+if(isset($_GET['delete'])){
     $id = $_GET['id'];
-    if ($inserts->delete($id)) {
-        echo $funciones->showMessage('info', 'User deleted successfully!');
+
+    if($inserts->delete($id)){
+        echo $funciones->showMessage('success', 'Se elimino el cliente correctamente');
     } else {
         echo $funciones->showMessage('danger', 'Something went wrong!');
     }

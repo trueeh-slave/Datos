@@ -1,7 +1,6 @@
 <?php
 class Funcion {
 
-
     public function testInput($data){
         $data = trim($data);
         $data = stripslashes($data);
@@ -10,7 +9,6 @@ class Funcion {
 
         return $data;
     }
-
 
     public function showMessage($type, $message) {
         return '<div class="alert alert-' . $type . ' alert-dismissible fade show" role="alert">

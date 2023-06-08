@@ -2,13 +2,7 @@
 global $conexion;
 require_once("../util/usage.php");
 
-$query = "SELECT * FROM cliente;";
-$result = mysqli_query($conexion, $query);
-
-$queryInm = "SELECT * FROM inmueble;";
-$resultInm = mysqli_query($conexion, $queryInm);
-
-$queryTp = "SELECT * FROM tipo_pago;";
+$queryTp = "SELECT * FROM tipo_pago WHERE ESTADO = 'A';";
 $resultTp = mysqli_query($conexion, $queryTp);
 
 ?>
@@ -39,33 +33,19 @@ $resultTp = mysqli_query($conexion, $queryTp);
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
-                <form id="addPay" class="p-2" novalidate>
+                <form id="add-user-form" class="p-2" novalidate>
                     <div class="row mb-3 gx-3">
 
                         <div class="col">
                             <!--Cliente dueño del inmueble-->
-                            <select name="idCliente" id="cliente" class="form-select" aria-label="Default select example">
-                                <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-                                    <option value="<?php echo $row['ID_CLIENTE']; ?>"><?php echo $row['PNOMBRE_CLIENTE']; ?></option>
-                                <?php } ?>
-                            </select>
-
-                            <div class="invalid-feedback">El cliente es requerido!</div>
+                            <input type="text"  name="idCliente" id="cliente" class="form-control form-control-lg" aria-label="Default select example" placeholder="Id Cliente">
+                            <div class="invalid-feedback">Id del cliente obligatorio.</div>
                         </div>
 
                         <div class="col">
-
                             <!--Inmueble al que se realiza el pago-->
-                            <select name="idInmueble" id="inmueble" class="form-select" aria-label="Default select example">
-
-                                <option selected>Inmueble</option>
-                                <?php while ($row = mysqli_fetch_assoc($resultInm)) { ?>
-                                    <option value="<?php echo $row['ID_INMUEBLE']; ?>"><?php echo $row['ID_INMUEBLE']; ?></option>
-                                <?php } ?>
-                            </select>
-
-                            <div class="invalid-feedback">El inmueble es requerido!</div>
+                            <input type="text" name="idInmueble" id="inmueble" class="form-control form-control-lg" aria-label="Default select example" placeholder="Id Inmueble">
+                            <div class="invalid-feedback">Id del inmueble obligatorio.</div>
                         </div>
 
                     </div>
@@ -76,77 +56,33 @@ $resultTp = mysqli_query($conexion, $queryTp);
                     </div>-->
 
                     <div class="mb-3">
-
                         <!--Valor a recaudar-->
                         <div class="mb-3">
-                            <input type="text" pattern="[0-9]{10}" name="valorRecuado" class="form-control form-control-lg" placeholder="Ingresa el valor" required>
-                            <div class="invalid-feedback">El valor de recaudo es necesario!</div>
+                            <input type="number" pattern="[0-9]{10}" name="valorRecaudo" class="form-control form-control-lg" placeholder="Ingresa el valor" required>
+                            <div class="invalid-feedback">Valor del recaudo obligatorio</div>
                         </div>
 
                         <!--Tipo de pago de cómo se va a realizar un pago-->
-                        <select name="idPago" id="" class="form-select"  aria-label="Default select example">
-                            <?php while ($row = mysqli_fetch_assoc($resultTp)) { ?>
-                                <option value="<?php echo $row['ID']; ?>"><?php echo $row['NOMBRE']; ?></option>
-                            <?php } ?>
-                        </select>
+                        <div class="col">
+                            <select name="idPago" id="" class="form-select" aria-label="Default select example">
+                                <?php while ($row = mysqli_fetch_assoc($resultTp)) { ?>
+                                    <option value="<?php echo $row['ID']; ?>"><?php echo $row['NOMBRE']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
 
                         <div class="invalid-feedback">Tipo de pago requerido!</div>
                     </div>
 
                     <div class="mb-3">
-                        <input type="submit" value="Añadir pago" class="btn btn-primary btn-block btn-lg" id="add-pay-btn">
+                        <input type="submit" value="Añadir pago" class="btn btn-primary btn-block btn-lg" id="add-user-btn">
                     </div>
-
                 </form>
-
             </div>
         </div>
     </div>
 </div>
 <!-- Add New User Modal End -->
-
-<!-- Edit User Modal Start -->
-<div class="modal fade" tabindex="-1" id="editUserModal">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add new user</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="edit-user-form" class="p-2" novalidate>
-                    <input type="hidden" name="id" id="id">
-                    <div class="row mb-3 gx-3">
-                        <div class="col">
-                            <input type="text" name="fname" id="fname" class="form-control form-control-lg" placeholder="Enter First Name" required>
-                            <div class="invalid-feedback">First name is required!</div>
-                        </div>
-
-                        <div class="col">
-                            <input type="text" name="lname" id="lname" class="form-control form-control-lg" placeholder="Enter Last Name" required>
-                            <div class="invalid-feedback">Last name is required!</div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Enter E-mail" required>
-                        <div class="invalid-feedback">E-mail is required!</div>
-                    </div>
-
-                    <div class="mb-3">
-                        <input type="tel" name="phone" id="phone" class="form-control form-control-lg" placeholder="Enter Phone" required>
-                        <div class="invalid-feedback">Phone is required!</div>
-                    </div>
-
-                    <div class="mb-3">
-                        <input type="submit" value="Update User" class="btn btn-success btn-block btn-lg" id="edit-user-btn">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Edit User Modal End -->
 <div class="container">
     <div class="row mt-4">
         <div class="col-lg-12 d-flex justify-content-between align-items-center">
@@ -179,17 +115,65 @@ $resultTp = mysqli_query($conexion, $queryTp);
                     </tr>
                     </thead>
                     <tbody>
-
+                        <th>Id</th>
+                        <th>Id cliente</th>
+                        <th>Id inmueble</th>
+                        <th>Valor recaudo</th>
+                        <th>Fecha negociación</th>
+                        <th>Tipo pago</th>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
-
-<script src="../js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script>
+    const addForm = document.getElementById("add-user-form");
+    const showAlert = document.getElementById("showAlert");
+    const addModal = new bootstrap.Modal(document.getElementById("addNewUserModal"));
+    const tbody = document.querySelector("tbody");
+
+    const addform1 = document.getElementById('add-user-form');
+
+    //añadir nuevo pago con un jax request
+    addform1.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(addform1);
+        formData.append("add", 1);
+
+        if (addform1.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+            addform1.classList.add("was-validated");
+            return false;
+        } else {
+            document.getElementById("add-user-btn").value = "Please Wait...";
+
+            const data = await fetch("../util/actionPago.php", {
+                method: "POST",
+                body: formData,
+            });
+            const response = await data.text();
+            showAlert.innerHTML = response;
+            document.getElementById("add-user-btn").value = "Añadir pago";
+            addform1.reset();
+            addform1.classList.remove("was-validated");
+            addModal.hide();
+            fetchAllUsers();
+        }
+    });
+
+    const fetchAllUsers = async () => {
+        const data = await fetch("../util/actionPago.php?read=1", {
+            method: "GET",
+        });
+        const response = await data.text();
+        tbody.innerHTML = response;
+    };
+    fetchAllUsers();
+</script>
 </body>
 
 </html>

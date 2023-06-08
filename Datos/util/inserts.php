@@ -19,8 +19,11 @@ class Inserts extends Config
 
         mysqli_stmt_execute($stmt);
 
+        $filasAfectadas = mysqli_affected_rows($conexion);
 
-        return true;
+        mysqli_close($conexion);
+
+        return $filasAfectadas > 0;
     }
 
     public function read()
@@ -42,47 +45,65 @@ class Inserts extends Config
     }
 
     // Update Single User
-    public function update($id, $cedula, $tipo_cedula, $papellido, $sapellido, $pnombre, $snombre, $ciudad, $fecha, $email, $ingreso, $telefono)
+    public function update($id, $tipo_cedula, $papellido, $sapellido, $pnombre, $snombre, $ciudad, $fecha, $email, $ingreso, $telefono)
     {
-        $sql = 'UPDATE cliente
-                SET NUM_IDENTIFICACION = :cedula,
-                    TIPO_DOCUMENTO = :tcedula,
-                    PAPELLIDO_CLIENTE = :papellido,
-                    SAPELLIDO_CLIENTE = :sapellido,
-                    PNOMBRE_CLIENTE = :pnombre,
-                    SNOMBRE_CLIENTE = :snombre,
-                    ID_CIUDAD = :ciudad,
-                    FECHA_NACIMIENTO = :fecha,
-                    CORREO_ELECTRONICO = :email,
-                    INGRESO_MENSUAL = :ingreso,
-                    TELEFONO_CLIENTE = :telefono
-                    WHERE ID_CLIENTE = :id;
-';
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            'cedula' => $cedula,
-            'tcedula' => $tipo_cedula,
-            'papellido' => $papellido,
-            'sapellido' => $sapellido,
-            'pnombre' => $pnombre,
-            'snombre' => $snombre,
-            'ciudad' => $ciudad,
-            'fecha' => $fecha,
-            'email' => $email,
-            'ingreso' => $ingreso,
-            'telefono' => $telefono,
-            'id' => $id
-        ]);
+        $conexion = mysqli_connect("localhost", "root", "", "constructora_3corte");
 
-        return true;
+        if (!$conexion) {
+            die("Error al conectar a la base de datos: " . mysqli_connect_error());
+        }
+
+        $query = "CALL editClient(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = mysqli_prepare($conexion, $query);
+        mysqli_stmt_bind_param($stmt, "sssssssssss", $tipo_cedula, $papellido, $sapellido, $pnombre, $snombre, $ciudad, $fecha, $email, $ingreso, $telefono, $id);
+
+        mysqli_stmt_execute($stmt);
+
+        $filasAfectadas = mysqli_affected_rows($conexion);
+
+        mysqli_close($conexion);
+
+        return $filasAfectadas > 0;
     }
 
+    //Delete user from database
     public function delete($id)
     {
-        $sql = 'DELETE FROM cliente WHERE NUM_IDENTIFICACION = :id';
+        $sql = 'CALL deleteClient(:id)';
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(['id' => $id]);
         return true;
+    }
+
+    public function insertPay($idCliente, $idInmueble, $valor, $tipoDoc)
+    {
+        $conexion = mysqli_connect("localhost", "root", "", "constructora_3corte");
+
+        if (!$conexion) {
+            die("Error al conectar a la base de datos: " . mysqli_connect_error());
+        }
+
+        $query = "CALL addPay(?, ?, ?, ?)";
+
+        $stmt = mysqli_prepare($conexion, $query);
+        mysqli_stmt_bind_param($stmt, "ssss", $idCliente, $idInmueble, $valor, $tipoDoc);
+
+        mysqli_stmt_execute($stmt);
+
+        $filasAfectadas = mysqli_affected_rows($conexion);
+
+        mysqli_close($conexion);
+
+        return $filasAfectadas > 0;
+    }
+
+    public function readPay()
+    {
+        $sql = 'SELECT * FROM PAGOS';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 }
 

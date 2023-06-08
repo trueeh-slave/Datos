@@ -130,11 +130,6 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
                     <input type="hidden" name="id" id="id">
                     <div class="row mb-3 gx-3">
                         <div class="col">
-                            <input type="text" name="nident" id="nident" class="form-control form-control-lg" placeholder="Identificación" required>
-                            <div class="invalid-feedback">Identificación Obligatoria</div>
-                        </div>
-
-                        <div class="col">
                             <select name="tipoDoc" id="tipoDoc" class="form-select form-control-lg" aria-label="Default select example" required>
                                 <?php while ($row = mysqli_fetch_assoc($resultDocEdit)) { ?>
                                     <option value="<?php echo $row['ID_DOCUMENTO']; ?>"><?php echo $row['NOMBRE_DOCUMENTO']; ?></option>
@@ -204,7 +199,7 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
     <div class="row mt-4">
         <div class="col-lg-12 d-flex justify-content-between align-items-center">
             <div>
-                <h4 class="text-primary">All users in the database!</h4>
+                <h4 class="text-primary">Clientes Registrados</h4>
             </div>
             <div>
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewUserModal">Add New User</button>
@@ -324,7 +319,6 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
         });
         const response = await data.json();
         document.getElementById("id").value = response.ID_CLIENTE;
-        document.getElementById("nident").value = response.NUM_IDENTIFICACION;
         document.getElementById("tipoDoc").value = response.NOMBRE_DOCUMENTO;
         document.getElementById("papellido").value = response.PAPELLIDO_CLIENTE;
         document.getElementById("sapellido").value = response.SAPELLIDO_CLIENTE;
@@ -376,8 +370,8 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
     });
 
     const deleteUser = async (id) => {
-        const data = await fetch(`../utils/action.php?delete=1&id=${id}`, {
-            method: "GET",
+        const data = await fetch(`../util/action.php?delete=1&id=${id}`, {
+            method: "POST",
         });
         const response = await data.text();
         showAlert.innerHTML = response;
