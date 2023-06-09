@@ -5,6 +5,9 @@ require_once("../util/usage.php");
 $queryTp = "SELECT * FROM tipo_pago WHERE ESTADO = 'A';";
 $resultTp = mysqli_query($conexion, $queryTp);
 
+$queryCli = "SELECT * FROM cliente";
+$resultCli = mysqli_query($conexion, $queryCli);
+
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +21,7 @@ $resultTp = mysqli_query($conexion, $queryTp);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -38,22 +42,18 @@ $resultTp = mysqli_query($conexion, $queryTp);
 
                         <div class="col">
                             <!--Cliente dueño del inmueble-->
-                            <input type="text"  name="idCliente" id="cliente" class="form-control form-control-lg" aria-label="Default select example" placeholder="Id Cliente">
-                            <div class="invalid-feedback">Id del cliente obligatorio.</div>
+                            <select name="idCliente" id="cliente" class="form-select form-control-lg source_dependent_select" aria-label="Default select example" required>
+'                                 <?php while ($row = mysqli_fetch_assoc($resultCli)) { ?>
+                                    <option value="<?php echo $row['ID_CLIENTE']; ?>"><?php echo $row['PNOMBRE_CLIENTE']; ?></option>
+                                <?php } ?>
+                            </select>
                         </div>
 
-                        <div class="col">
-                            <!--Inmueble al que se realiza el pago-->
-                            <input type="text" name="idInmueble" id="inmueble" class="form-control form-control-lg" aria-label="Default select example" placeholder="Id Inmueble">
-                            <div class="invalid-feedback">Id del inmueble obligatorio.</div>
+                        <div class="col" id="selectInmueble">
+
                         </div>
 
                     </div>
-
-                    <!--<div class="mb-3">
-                      <input type="date" name="fechaNego" class="form-control form-control-lg" required>
-                      <div class="invalid-feedback">La fecha es requerida!</div>
-                    </div>-->
 
                     <div class="mb-3">
                         <!--Valor a recaudar-->
@@ -171,8 +171,32 @@ $resultTp = mysqli_query($conexion, $queryTp);
         });
         const response = await data.text();
         tbody.innerHTML = response;
-    };
+        };
     fetchAllUsers();
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#cliente').val(20020);
+        recargarLista();
+
+        $('#cliente').change(function(){
+        recargarLista();
+        });
+    })
+</script>
+
+<script type="text/javascript">
+    function recargarLista(){
+    $.ajax({
+    type: "POST",
+        url:"../util/select.php",
+        data: "clientes=" + $('#cliente').val(),
+        success:function(r){
+        $('#selectInmueble').html(r);
+        }
+    });
+    }
 </script>
 </body>
 

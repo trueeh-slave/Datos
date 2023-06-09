@@ -41,10 +41,10 @@
 
                     <!--item del menú desplegable-->
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="reporteDeuda.php">Reporte clientes (Deuda)</a></li>
-                        <li><a class="dropdown-item" href="reporteProyectoMasDeuda.php">Reporte de proyecto que más deben</a></li>
-                        <li><a class="dropdown-item" href="reporteProyectoCliente.php">Reporte proyecto que más deben por cliente</a></li>
-                        <li><a class="dropdown-item" href="reporteClienteInmueble.php">Reporte Deuda de cliente por inmueble</a></li>
+                        <li><a class="dropdown-item" href="reporteDeuda.php">Cartera Deudas</a></li>
+                        <li><a class="dropdown-item" href="reporteProyectoMasDeuda.php">Cartera por proyecto</a></li>
+                        <li><a class="dropdown-item" href="reporteProyectoCliente.php">Cartera por clientes</a></li>
+                        <li><a class="dropdown-item" href="reporteClienteInmueble.php">Cartera Clientes Inmuebles</a></li>
                     </ul>
                 </li>
             </ul>
