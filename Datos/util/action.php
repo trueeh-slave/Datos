@@ -36,11 +36,8 @@ if (isset($_GET['read'])) {
                       <td>' . $row['NUM_IDENTIFICACION'] . '</td>
                       <td>' . $row['NOMBRE_DOCUMENTO'] . '</td>
                       <td>' . $row['PAPELLIDO_CLIENTE'] . '</td>
-                      <td>' . $row['SAPELLIDO_CLIENTE'] . '</td>
                       <td>' . $row['PNOMBRE_CLIENTE'] . '</td>
-                      <td>' . $row['SNOMBRE_CLIENTE'] . '</td>
                       <td>' . $row['NOMBRE_CIUDAD'] . '</td>
-                      <td>' . $row['FECHA_NACIMIENTO'] . '</td>
                       <td>' . $row['CORREO_ELECTRONICO'] . '</td>
                       <td>' . $row['INGRESO_MENSUAL'] . '</td>
                       <td>' . $row['TELEFONO_CLIENTE'] . '</td>

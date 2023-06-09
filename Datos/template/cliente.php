@@ -222,11 +222,8 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
                         <th>Identificación</th>
                         <th>Tipo Documento</th>
                         <th>Primer Apellido</th>
-                        <th>Segundo Apellido</th>
                         <th>Primer nombre</th>
-                        <th>Segundo nombre </th>
                         <th>Ciudad</th>
-                        <th>Fecha nacimiento</th>
                         <th>Correo</th>
                         <th>Ingreso</th>
                         <th>Teléfono</th>
@@ -239,11 +236,8 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
                         <td>Identificación</td>
                         <td>Tipo Documento</td>
                         <td>Primer Apellido</td>
-                        <td>Segundo Apellido</td>
                         <td>Primer nombre</td>
-                        <td>Segundo nombre </td>
                         <td>Ciudad</td>
-                        <td>Fecha Nacimiento </td>
                         <td>Correo</td>
                         <td>Ingreso Mensual</td>
                         <td>Teléfono</td>
