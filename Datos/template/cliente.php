@@ -240,6 +240,8 @@ $resultCiudadEdit = mysqli_query($conexion, $ciudadEdit);
                         <td>Tipo Documento</td>
                         <td>Primer Apellido</td>
                         <td>Segundo Apellido</td>
+                        <td>Primer nombre</td>
+                        <td>Segundo nombre </td>
                         <td>Ciudad</td>
                         <td>Fecha Nacimiento </td>
                         <td>Correo</td>

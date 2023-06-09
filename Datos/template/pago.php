@@ -18,10 +18,12 @@ $resultCli = mysqli_query($conexion, $queryCli);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Módulo Reacaudo</title>
     <!-- Bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"
+            integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -42,8 +44,10 @@ $resultCli = mysqli_query($conexion, $queryCli);
 
                         <div class="col">
                             <!--Cliente dueño del inmueble-->
-                            <select name="idCliente" id="cliente" class="form-select form-control-lg source_dependent_select" aria-label="Default select example" required>
-'                                 <?php while ($row = mysqli_fetch_assoc($resultCli)) { ?>
+                            <select name="idCliente" id="cliente"
+                                    class="form-select form-control-lg source_dependent_select"
+                                    aria-label="Default select example" required>
+                                ' <?php while ($row = mysqli_fetch_assoc($resultCli)) { ?>
                                     <option value="<?php echo $row['ID_CLIENTE']; ?>"><?php echo $row['PNOMBRE_CLIENTE']; ?></option>
                                 <?php } ?>
                             </select>
@@ -58,13 +62,14 @@ $resultCli = mysqli_query($conexion, $queryCli);
                     <div class="mb-3">
                         <!--Valor a recaudar-->
                         <div class="mb-3">
-                            <input type="number" pattern="[0-9]{10}" name="valorRecaudo" class="form-control form-control-lg" placeholder="Ingresa el valor" required>
+                            <input type="number" pattern="[0-9]{10}" name="valorRecaudo"
+                                   class="form-control form-control-lg" placeholder="Ingresa el valor" required>
                             <div class="invalid-feedback">Valor del recaudo obligatorio</div>
                         </div>
 
                         <!--Tipo de pago de cómo se va a realizar un pago-->
                         <div class="col">
-                            <select name="idPago" id="" class="form-select" aria-label="Default select example">
+                            <select name="idPago" onchange="mostrarInput()" id="tpago" class="form-select" aria-label="Default select example">
                                 <?php while ($row = mysqli_fetch_assoc($resultTp)) { ?>
                                     <option value="<?php echo $row['ID']; ?>"><?php echo $row['NOMBRE']; ?></option>
                                 <?php } ?>
@@ -72,10 +77,17 @@ $resultCli = mysqli_query($conexion, $queryCli);
                         </div>
 
                         <div class="invalid-feedback">Tipo de pago requerido!</div>
+
+                        <div class="mb-3" style="display: none;" id="divNt">
+                            <input type="number" id="numTar" pattern="[0-9]{10}" name="numTarjeta"
+                                   class="form-control form-control-lg mt-2" placeholder="Ingresa el número tarjeta">
+                        </div>
+
                     </div>
 
                     <div class="mb-3">
-                        <input type="submit" value="Añadir pago" class="btn btn-primary btn-block btn-lg" id="add-user-btn">
+                        <input type="submit" value="Añadir pago" class="btn btn-primary btn-block btn-lg"
+                               id="add-user-btn">
                     </div>
                 </form>
             </div>
@@ -90,7 +102,9 @@ $resultCli = mysqli_query($conexion, $queryCli);
                 <h4 class="text-primary">Pagos de los usuarios!</h4>
             </div>
             <div>
-                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewUserModal">Añadir nuevo pago</button>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#addNewUserModal">Añadir
+                    nuevo pago
+                </button>
             </div>
         </div>
     </div>
@@ -115,19 +129,21 @@ $resultCli = mysqli_query($conexion, $queryCli);
                     </tr>
                     </thead>
                     <tbody>
-                        <th>Id</th>
-                        <th>Id cliente</th>
-                        <th>Id inmueble</th>
-                        <th>Valor recaudo</th>
-                        <th>Fecha negociación</th>
-                        <th>Tipo pago</th>
+                    <th>Id</th>
+                    <th>Id cliente</th>
+                    <th>Id inmueble</th>
+                    <th>Valor recaudo</th>
+                    <th>Fecha negociación</th>
+                    <th>Tipo pago</th>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 <script>
     const addForm = document.getElementById("add-user-form");
     const showAlert = document.getElementById("showAlert");
@@ -171,31 +187,48 @@ $resultCli = mysqli_query($conexion, $queryCli);
         });
         const response = await data.text();
         tbody.innerHTML = response;
-        };
+    };
     fetchAllUsers();
 </script>
 
+<script>
+    function mostrarInput() {
+        var selectElement = document.getElementById("tpago");
+        var campoInput = document.getElementById("divNt");
+        var inputTexto = document.getElementById("numTar");
+
+        if (selectElement.value === "1") {
+            campoInput.style.display = "block";
+            inputTexto.required = false;
+        } else {
+            campoInput.style.display = "none";
+            inputTexto.required = false;
+        }
+    }
+
+</script>
+
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#cliente').val(20020);
+    $(document).ready(function () {
+        $('#cliente').val();
         recargarLista();
 
-        $('#cliente').change(function(){
-        recargarLista();
+        $('#cliente').change(function () {
+            recargarLista();
         });
     })
 </script>
 
 <script type="text/javascript">
-    function recargarLista(){
-    $.ajax({
-    type: "POST",
-        url:"../util/select.php",
-        data: "clientes=" + $('#cliente').val(),
-        success:function(r){
-        $('#selectInmueble').html(r);
-        }
-    });
+    function recargarLista() {
+        $.ajax({
+            type: "POST",
+            url: "../util/select.php",
+            data: "clientes=" + $('#cliente').val(),
+            success: function (r) {
+                $('#selectInmueble').html(r);
+            }
+        });
     }
 </script>
 </body>

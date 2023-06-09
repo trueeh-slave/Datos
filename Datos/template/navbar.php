@@ -43,8 +43,8 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="reporteDeuda.php">Cartera Deudas</a></li>
                         <li><a class="dropdown-item" href="reporteProyectoMasDeuda.php">Cartera por proyecto</a></li>
-                        <li><a class="dropdown-item" href="reporteProyectoCliente.php">Cartera por clientes</a></li>
-                        <li><a class="dropdown-item" href="reporteClienteInmueble.php">Cartera Clientes Inmuebles</a></li>
+                        <li><a class="dropdown-item" href="reporteProyectoCliente.php">Cartera Proyecto por clientes</a></li>
+                        <li><a class="dropdown-item" href="reporteClienteInmueble.php">Cartera Clientes por Inmuebles</a></li>
                     </ul>
                 </li>
             </ul>
